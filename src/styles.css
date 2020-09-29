@@ -1,11 +1,12 @@
 * {
-    margin: 0;
+    margin: 0px;
 }
 
 :root {
     --nav-grey: #2b2b2b;
     --body-grey: #161616;
     --input-grey: #3d3d3d;
+    --text-dark-grey: #4e4e4e;
     --text-light-grey: #b4b4b4;
     --text-lighter-grey: #dbdbdb;
     --white: #ffffff;
@@ -20,7 +21,9 @@ body{
     background-color: var(--nav-grey);
 }
 .navbar-content {
+    height: 70px;
     width: 90%;
+    display: flex;
     align-items: center;
 }
 
@@ -38,9 +41,10 @@ body{
 .new-releases{
     height: 100vh;
     background-color: var(--body-grey);
-    grid-template-rows: 20% auto;
+    grid-template-rows: 10% auto;
 }
 .song-list-container{
+    height: 80vh;
     margin: 0 10%;
     grid-template-rows: 10% auto;
 }
@@ -60,6 +64,45 @@ body{
 .release-control i:hover{
     color: var(--text-lighter-grey);
 }
+/* Song Card */
+.song-card-container{
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.release-song-image{
+    width: 100%;
+}
+.song-card{
+    height: 250px;
+    width: 15.66%;
+    /* background-color: #b4b4b4; */
+    transition: all 300ms ease-in-out;
+    bottom:0;
+}
+.song-card .release-song-image{
+    transition: all 300ms ease-in-out;
+}
+.song-card:hover{
+    width: 18%;
+}
+.song-card:hover .song-title{
+    color: var(--text-lighter-grey)
+}
+.song-card:hover .artist-name{
+    display: none;
+}
+.song-title{
+    height: 20px;
+    color: var(--text-light-grey);
+    overflow: hidden;
+    transition: all 300ms ease-in-out;
+}
+.artist-name{
+    height: 20px;
+    color: var(--text-dark-grey);
+    overflow: hidden;
+}
+
 /* Input */
 .nav-input-container{
     width: 33%;
@@ -77,6 +120,7 @@ body{
 /* Display */
 .row {
     display: flex;
+    margin: 0;
 }
 .grid{
     display: grid;

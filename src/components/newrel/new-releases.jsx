@@ -27,7 +27,7 @@ export default React.memo(function NewReleases() {
         getSongs()
     }, []);
 
-    const getSongs = () => {
+    const getSongs = (offs) => {
         request.post(authOptions, (error, response, body) => {
             setToken(body.access_token);
             if (!error && response.statusCode === 200) {
@@ -50,15 +50,14 @@ export default React.memo(function NewReleases() {
             case 'offPrev':
                 if (offset > 0) {
                     setOffset(offset - 12);
+                    getSongs();
                 }
                 break;
             case 'offNext':
                 setOffset(offset + 12);
+                getSongs();
                 break;
         }
-        setTimeout(()=>{
-            getSongs();
-        },50)
     }
 
     return (
@@ -75,14 +74,17 @@ export default React.memo(function NewReleases() {
                         onClick={() => offsetList("offNext")}
                         className="fas fa-chevron-circle-right"></i>
                 </div>
-                <div className="white">
+                <div className="song-card-container row white">
                     {songs.map(song => {
-                        return (
-                            <p>{song.name}</p>
-                        )
+                        let artist = []
+                        for(let i = 0; i<song.artists.length; i++){
+                            artist.push(song.artists[i].name)
+                            console.log(artist)
+                        }
+                        const artists_name = artist.join(" ft. ")
+                        return (<SongCard name={song.name} artistName={artists_name} thumb={song.images[1].url}/>)
                     })}
                 </div>
-                {/* <SongCard/> */}
             </div>
         </div>
     )

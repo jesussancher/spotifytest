@@ -1,7 +1,15 @@
 import React from 'react'
 
-export default function SongCard() {
+export default function SongCard(props) {
     return (
-        <div>Hola</div>
+        <div className="song-card">
+            <img
+                className="release-song-image"
+                src={props.thumb}
+                alt={props.name}
+                title={props.name}/>
+            <div className="song-title">{props.name}</div>
+            <p className="artist-name">{props.artistName}</p>
+        </div>
     )
 }
