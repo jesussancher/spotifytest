@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function SongCard(props) {
     return (
-        <div className="song-card">
+        <div id={props.id} className="song-card">
             <img
                 className="release-song-image"
                 src={props.thumb}

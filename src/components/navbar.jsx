@@ -1,7 +1,46 @@
-import React from 'react';
+// *Link: React Router component, used to set the path to redirect
+import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar(props) {
+    // States setup *search: State with both search values, songs and artists
+    const [search,
+        setSearch] = useState({artists: '', songs: ''})
+    // *artistsOnChange: gets value from artits input and sets search "artists"
+    // value on real time, using onChange action *songsOnChange: Same as
+    // artistsOnChange, but sets search "songs" value
+    const artistsOnChange = (event) => {
+        let value = event.target.value;
+        setSearch({
+            ...search,
+            artists: value
+        })
+    }
+    const songsOnChange = (event) => {
+        let value = event.target.value;
+        setSearch({
+            ...search,
+            songs: value
+        })
+    }
+    // const resetInputs = () => {
+    //     document.addEventListener("click", (evt) =>{
+    //         const artistsInput = document.getElementById("artistsInput");
+    //         const songsInput = document.getElementById("songsInput");
+    //         let target = evt.target;
+
+    //         if((artistsInput || songsInput) != target){
+    //             artistsInput.value = " ";
+    //             songsInput.value = " ";
+    //         }
+    //     })
+    // }
+    // resetInputs();
+    // Life cycle to reload getSearch funciton passed via props, i will update when
+    // search state changes
+    useEffect(() => {
+        props.getSearch(search)
+    }, [search])
     return (
         <nav className="navbar">
             <div className="navbar-content row">
@@ -17,14 +56,28 @@ export default function Navbar() {
                         </g>
                     </svg>
                 </Link>
-                <div className="nav-input-container">
-                    <Link to="/about"><input className="nav-input" placeholder="Buscar Artista"></input></Link>
+                <div className="nav-input-container relative">
+                    <i className="fas fa-search absolute"></i>
+                    <Link to="/artists">
+                        <input
+                            id="artistsInput"
+                            className="nav-input"
+                            placeholder="Search artists"
+                            name="artists"
+                            onChange={artistsOnChange}></input>
+                    </Link>
                 </div>
-                <div className="nav-input-container">
-                    <Link to="/users"><input className="nav-input" placeholder="Buscar Canción"></input></Link>
+                <div className="nav-input-container relative">
+                    <i className="fas fa-search absolute"></i>
+                    <Link to="/about">
+                        <input
+                            id="songsInput"
+                            className="nav-input"
+                            placeholder="Search songs"
+                            name="songs"
+                            onChange={songsOnChange}></input>
+                    </Link>
                 </div>
-
-
             </div>
         </nav>
     )

@@ -1,25 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import styles from './styles.css';
 import Navbar from './components/navbar'
 import NewReleases from './components/newrel/new-releases'
+import ArtistSearch from './components/artists/artist-search'
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import './App.css';
+// import 'semantic-ui-css/semantic.min.css';
 
 export default function App() {
+    const [search, setSearch] = useState({
+        artists: '',
+        songs: '',
+    })
+    const getSearch = (search) => {
+        setSearch({
+            artists: search.artists, 
+            songs: search.songs
+        })
+    }
+
     return (
         <Router>
             <div>
-                <Navbar/>
+                <Navbar getSearch={getSearch}/>
                 <Switch>
                     <Route path="/about">
-                        <Home/>
+                        <About/>
                     </Route>
-                    <Route path="/users">
-                        <Users/>
+                    <Route path="/artists">
+                        <ArtistSearch artistSearch={search.artists} />
                     </Route>
                     <Route path="/">
-                        <NewReleases/>
+                        <NewReleases />
                     </Route>
                 </Switch>
             </div>
@@ -27,14 +40,6 @@ export default function App() {
     );
 }
 
-function Home() {
-    return <h2>Home</h2>;
-}
-
 function About() {
     return <h2>About</h2>;
-}
-
-function Users() {
-    return <h2>Users</h2>;
 }
