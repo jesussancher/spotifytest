@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+}
+
+:root {
+    --nav-grey: #2b2b2b;
+    --body-grey: #161616;
+    --input-grey: #3d3d3d;
+    --text-light-grey: #b4b4b4;
+    --text-lighter-grey: #dbdbdb;
+    --white: #ffffff;
+}
+
+body{
+    overflow: hidden;
+}
+/* Navigation */
+.navbar {
+    height: 70px;
+    background-color: var(--nav-grey);
+}
+.navbar-content {
+    width: 90%;
+    align-items: center;
+}
+
+/* Logo */
+.logo-container {
+    margin-left: 20px;
+    width: 193px;
+}
+.logo {
+    fill: currentColor;
+    width: 203px;
+}
+
+/* New Release */
+.new-releases{
+    height: 100vh;
+    background-color: var(--body-grey);
+    grid-template-rows: 20% auto;
+}
+.song-list-container{
+    margin: 0 10%;
+    grid-template-rows: 10% auto;
+}
+.release-control{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.release-control i{
+    color: var(--text-light-grey);
+    font-size: 25px;
+    padding: 0 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+}
+.release-control i:hover{
+    color: var(--text-lighter-grey);
+}
+/* Input */
+.nav-input-container{
+    width: 33%;
+    align-items: center;
+}
+.nav-input{
+    height: 35px;
+    width: 80%;
+    background-color: var(--input-grey);
+    border: 0;
+    border-radius: 3px;
+    padding-left: 40px;
+    color: var(--text-light-grey)
+}
+/* Display */
+.row {
+    display: flex;
+}
+.grid{
+    display: grid;
+}
+
+/* Color */
+.white {
+    color: var(--white);
+}
+
+/* Lettering */
+.main-title{
+    margin: auto;
+    color: var(--text-light-grey)
+}
+/* Debug */
+.debug{
+    border: solid 1px red;
+}
