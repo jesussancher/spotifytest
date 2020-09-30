@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import { propTypes } from 'react-bootstrap/esm/Image';
+import {propTypes} from 'react-bootstrap/esm/Image';
 import SongCard from './song-card'
+
 export default React.memo(function NewReleases(props) {
     // States setup ***songs: Array with songs gotten as a response of the request
     // 12 songs were asked ***offset: Allows to get the next or prev 12 songs when
@@ -12,6 +13,7 @@ export default React.memo(function NewReleases(props) {
         setToken] = useState('');
     const [songs,
         setSongs] = useState([]);
+    
     const [offset,
         setOffset] = useState(0);
     const request = require('request');
@@ -74,6 +76,10 @@ export default React.memo(function NewReleases(props) {
                 break;
         }
     }
+    // We are passing the click artist's ID to App.js states
+    const getArtistProfile = (e) => {
+        props.getArtistProfile(e)
+    }
     return (
         <div className="new-releases grid">
             <h2 className="main-title">New releases</h2>
@@ -96,9 +102,11 @@ export default React.memo(function NewReleases(props) {
                         }
                         const artists_name = artist.join(" ft. ")
                         return (<SongCard
+                            getArtistProfile={getArtistProfile}
                             id={'song' + key}
                             name={song.name}
                             artistName={artists_name}
+                            artistID={song.artists[0].id}
                             thumb={song.images[1].url}/>)
                     })}
                 </div>

@@ -23,19 +23,6 @@ export default function Navbar(props) {
             songs: value
         })
     }
-    // const resetInputs = () => {
-    //     document.addEventListener("click", (evt) =>{
-    //         const artistsInput = document.getElementById("artistsInput");
-    //         const songsInput = document.getElementById("songsInput");
-    //         let target = evt.target;
-
-    //         if((artistsInput || songsInput) != target){
-    //             artistsInput.value = " ";
-    //             songsInput.value = " ";
-    //         }
-    //     })
-    // }
-    // resetInputs();
     // Life cycle to reload getSearch funciton passed via props, i will update when
     // search state changes
     useEffect(() => {
@@ -69,7 +56,7 @@ export default function Navbar(props) {
                 </div>
                 <div className="nav-input-container relative">
                     <i className="fas fa-search absolute"></i>
-                    <Link to="/about">
+                    <Link to="/songs">
                         <input
                             id="songsInput"
                             className="nav-input"
