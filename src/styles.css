@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    /* border: solid 1px red; */
 }
 
 :root {
@@ -18,7 +19,10 @@ body {
 }
 /* Navigation */
 .navbar {
+    top: 0;
+    left: 0;
     height: 70px;
+    width: 100%;
     background-color: var(--nav-grey);
 }
 .navbar-content {
@@ -40,14 +44,15 @@ body {
 
 /* New Release */
 .new-releases {
+    padding-top: 70px;
     height: 100vh;
     background-color: var(--body-grey);
-    grid-template-rows: 10% auto;
+    grid-template-rows: 7% auto;
 }
 .song-list-container {
     height: 80vh;
     margin: 0 10%;
-    grid-template-rows: 10% auto;
+    grid-template-rows: 7% auto;
 }
 .release-control {
     display: flex;
@@ -72,9 +77,9 @@ body {
 }
 .release-song-image {
     width: 100%;
+    border-radius: 3px;
 }
 .song-card {
-    height: 250px;
     width: 15.66%;
     transition: all 300ms ease-in-out;
     cursor: pointer;
@@ -89,12 +94,12 @@ body {
 .song-card:hover .song-title {
     color: var(--text-lighter-grey);
 }
-.artist-name:hover{
+.artist-name:hover {
     color: var(--main-green);
 }
 .song-title {
     padding: 0 5px;
-    height: 20px;
+    height: 23px;
     color: var(--text-light-grey);
     overflow: hidden;
     transition: all 300ms ease-in-out;
@@ -107,10 +112,11 @@ body {
 }
 /* Artists Search */
 .search-artist-image {
+    border-radius: 3px;
     background-position: center;
     background-size: cover;
     width: 100%;
-    height: 200px;
+    height: 180px;
 }
 .search-artist-name {
     height: 25px;
@@ -118,8 +124,8 @@ body {
     color: var(--text-light-grey);
     overflow: hidden;
 }
-.song-card:hover .search-artist-name{
-    color: var(--main-green)
+.song-card:hover .search-artist-name {
+    color: var(--main-green);
 }
 /* No Search */
 .no-search {
@@ -147,9 +153,196 @@ body {
     color: var(--text-light-grey);
     font-size: 1em;
 }
+/* Artist Profile */
+.artist-profile-content {
+    height: 90vh;
+    grid-template-areas: "about about albums albums albums albums";
+}
+.artist-about {
+    width: 40%;
+}
+.artist-about-photo {
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+}
+.artist-photo {
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+}
+.artist-profile-name {
+    margin: 10px;
+    font-size: 2em;
+    color: var(--text-light-grey);
+}
+.artist-about-info {
+    height: 30vh;
+}
+.artist-info {
+    margin: 25px 10% 0;
+    padding-top: 10px;
+    height: 20vh;
+    color: var(--text-light-grey);
+    overflow-y: auto;
+    border-bottom: solid 1px var(--input-grey);
+    border-top: solid 1px var(--input-grey);
+}
+.artist-info::before {
+    top: -5px;
+    position: absolute;
+    content: "About";
+    color: var(var(--text-lighter-grey));
+}
+.artist-about-related-container {
+    margin: -10px 10% 0;
+}
+.artist-about-related-container p {
+    margin-bottom: 10px;
+    color: var(--text-light-grey);
+}
+.artist-about-related {
+    overflow: hidden;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.related-photo {
+    position: relative;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    width: 75px;
+    height: 75px;
+    transition: all 300ms ease-in-out;
+}
+.related-photo:hover {
+    margin: 0 3px;
+}
+.artist-profile-music {
+    width: 60%;
+}
+.artist-profile-music-albums {
+    border-bottom: solid 1px var(--input-grey);
+    margin: 20px 5% 0 0;
+}
+.artist-profile-music-albums .fas {
+    font-size: 20px;
+}
+.album-cart-container {
+    height: 180px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+.album-cart {
+    width: 110px;
+    height: 150px;
+    transition: all 300ms ease-in-out;
+    cursor: pointer;
+}
+.album-cart:hover {
+    margin: 0 3px;
+}
+.album-cart:hover .album-title {
+    color: var(--text-lighter-grey);
+}
+.album-image {
+    border-radius: 3px;
+    background-position: center;
+    background-size: cover;
+    height: 120px;
+    width: 100%;
+}
+.album-title {
+    margin: 3px 0 0 2px;
+    font-size: 0.9em;
+    color: var(--text-light-grey);
+    height: 22px;
+    overflow: hidden;
+}
+.album-year {
+    margin: -3px 0 0 2px;
+    font-size: 0.7em;
+    color: var(--text-dark-grey);
+}
+.albums-control {
+    justify-content: space-between;
+}
+.albums-control p {
+    color: var(--text-light-grey);
+}
+/* Top Tracks */
+.artist-profile-music-tracks {
+    margin-top: 8vh;
+    margin-right: 5%;
+    height: 40vh;
+    border-top: solid 1px var(--input-grey);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.artist-profile-music-tracks-container::before {
+    top: 15px;
+    position: absolute;
+    content: "Most Popular Tracks";
+    color: var(--text-lighter-grey);
+}
+.top-cart {
+    width: 100%;
+    border-bottom: solid 1px var(--input-grey);
+    align-items: center;
+    padding: 10px 0;
+}
+.top-image {
+    height: 40px;
+    width: 40px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.top-cart:hover .top-image{
+    height: 42px;
+    width: 42px;
+}
+.top-position {
+    width: 10px;
+    padding-left: 10px;
+    padding-right: 20px;
+    color: var(--text-light-grey);
+    font-size: 0.8em;
+}
+.top-title {
+    color: var(--text-light-grey);
+    cursor: pointer;
+}
+.top-title:hover {
+    color: var(--text-lighter-grey)
+}
+.top-album {
+    color: var(--text-dark-grey);
+    font-size: 0.8em;
+    cursor: pointer;
+}
+.top-song-info {
+    width: 80%;
+}
+.top-duration {
+    color: var(--text-dark-grey);
+    font-size: 0.8em;
+    justify-content: flex-end;
+}
 /* Display */
 .row {
     display: flex;
+}
+.column {
+    display: flex;
+    flex-direction: column;
 }
 .grid {
     display: grid;
@@ -162,6 +355,9 @@ body {
 .absolute {
     position: absolute;
 }
+.fixed {
+    position: fixed;
+}
 /* Color */
 .white {
     color: var(--white);
@@ -172,7 +368,7 @@ body {
     margin: auto;
     color: var(--text-light-grey);
 }
-.link-none-decoration{
+.link-none-decoration {
     text-emphasis: none;
     text-decoration: none;
 }

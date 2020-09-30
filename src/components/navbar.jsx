@@ -12,16 +12,24 @@ export default function Navbar(props) {
     const artistsOnChange = (event) => {
         let value = event.target.value;
         setSearch({
-            ...search,
+            songs: '',
             artists: value
         })
     }
     const songsOnChange = (event) => {
         let value = event.target.value;
         setSearch({
-            ...search,
+            artists: '',
             songs: value
         })
+    }
+    const selectAll = (id) =>{
+        const input = document.getElementById(id)
+        input.setSelectionRange(0, input.value.length)
+    }
+    const clearInput = (id) =>{
+        const input = document.getElementById(id)
+        input.value = ""
     }
     // Life cycle to reload getSearch funciton passed via props, i will update when
     // search state changes
@@ -29,9 +37,9 @@ export default function Navbar(props) {
         props.getSearch(search)
     }, [search])
     return (
-        <nav className="navbar">
+        <nav className="navbar fixed">
             <div className="navbar-content row">
-                <Link to="/">
+                <Link to="/home">
                     <svg
                         viewBox="0 0 93 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -51,6 +59,8 @@ export default function Navbar(props) {
                             className="nav-input"
                             placeholder="Search artists"
                             name="artists"
+                            onDoubleClick={() => selectAll("artistsInput")}
+                            onClick={() => clearInput("songsInput")}
                             onChange={artistsOnChange}></input>
                     </Link>
                 </div>
@@ -62,6 +72,8 @@ export default function Navbar(props) {
                             className="nav-input"
                             placeholder="Search songs"
                             name="songs"
+                            onDoubleClick={() => selectAll("songsInput")}
+                            onClick={() => clearInput("artistsInput")}
                             onChange={songsOnChange}></input>
                     </Link>
                 </div>

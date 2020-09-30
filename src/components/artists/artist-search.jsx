@@ -1,4 +1,3 @@
-import {render} from '@testing-library/react';
 import React, {useEffect, useState} from 'react'
 import ArtistCard from './artist-card'
 import NoSearch from '../no-search'
