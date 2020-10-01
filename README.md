@@ -1,68 +1,69 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Spotify Challenge
+Por: Jesús Sánchez
+Como solución al reto propuesto para ser parte del equipo de Desarrolladores Web en Indigo, presento la siguiente aplicación web, desarrollada en React.js y desplegada en Vercel.
+Click Aquí
+Recursos Utilizados
+*React Router Dom:
+Para el redireccionamiento de componentes, permitiendo renderizar únicamente el componente correspondiente a la página solicitada.
+**Distribución de enlaces:
+Todos los enlaces son redirigidos por la barra de navegación, de la siguiente manera:
+Logo Spotify -> /Home
+Input de artistas -> /Artists
+Input de canciones -> /Songs
+Pasará mediante props los valores recibidos instantáneamente en cada uno de los inputs.
+-/Home:
+Se muestra el componente “New Releases”, que despliega en una distribución de 2x6, las primeras 12 canciones más nuevas. Permitiendo, con las flechas de control, solicitar las 12 siguientes o anteriores canciones, definidas por un offset, parámetro para el request de la API.
+El componente renderizará únicamente la búsqueda que no exista en su historial, así mejorando la experiencia del usuario.
+https://api.spotify.com/v1/browse/newreleases?offset=' + offset + '&limit=12
 
-## Available Scripts
+Se hace uso de useEffect para condicionar el renderizado, permitiendo que ocurra únicamente cuando se presionen las flechas de control.
+Al hacer click al nombre de algún artista, redirigirá, mediante componente Link, de React Router, al artista con el ID respectivo.
 
-In the project directory, you can run:
+-/Artists:
+Tras hacer click en el input de artistas, al inicialmente no contar con un texto como entrada, aparecerá un componente con el texto “No related artists ☹”.
+Una vez se comience a escribir, el componente renderizará y realizará el request cada vez que se presione una tecla, encontrando resultados, que serán dispuestos en una distribución 2x6, con la foto y el nombre del artista. Se pueden buscar los siguientes o anteriores 12 artistas al utilizar las flechas de control.
+https://api.spotify.com/v1/search?q=' + artistName + '&type=artist&limit=12&offset=' + offset
 
-### `yarn start`
+--artistName: string en el que se reemplazan los espacios escritos en la búsqueda, con los caracteres %20. 
+El componente renderizará únicamente la búsqueda que no exista en su historial.
+Se hace uso de useEffect para condicionar el renderizado, permitiendo que ocurra únicamente cuando se reciban valores en el input y/o se presionen las flechas de control.
+Al hacer click a algún artista, redirigirá, mediante componente Link, de React Router, al artista con el ID respectivo.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-/Songs:
+Ocurre igual que en /Artists, con la diferencia que el mensaje inicial es “No related songs ☹”, y se mostrará la foto del álbum al cual pertenece la canción, su nombre y el nombre de su artista.
+https://api.spotify.com/v1/search?q=' + artistName + '&type=artist&limit=12&offset=' + offset
 
-### `yarn build`
+--artistName: string en el que se reemplazan los espacios escritos en la búsqueda, con los caracteres %20. 
+El componente renderizará únicamente la búsqueda que no exista en su historial.
+Se hace uso de useEffect para condicionar el renderizado, permitiendo que ocurra únicamente cuando se reciban valores en el input y/o se presionen las flechas de control.
+Al hacer click al nombre de algún artista, redirigirá, mediante componente Link, de React Router, al artista con el ID respectivo.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-/Artistst/****
+Se realizan 4 solicitudes a la API de artistas de Spotify:
+-Información del Artista:
+'https://api.spotify.com/v1/artists/' + props.artistID
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+-Artistas relacionados:
+'https://api.spotify.com/v1/artists/' + props.artistID + '/related-artists'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-Albums del artista:
+'https://api.spotify.com/v1/artists/' + props.artistID + '/albums?limit=6&offset=' + offset
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+-Top tracks del artists:
+'https://api.spotify.com/v1/artists/' + props.artistID + '/top-tracks?market=CO'
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Dónde: 
+--props.artistID: id del artista pasado mediante props por el componente en el que fue clickeado el respectivo nombre.
+--offset: valor inicializado en 0 y puede sumarse o restarse de 6 en 6 para solicitar dicha cantidad de álbumes anteriores o siguientes.
+Para Top Tracks, se debió incluir el request market=CO, necesario para obtener una respuesta satisfactioria de la API (CO = Colombia).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+*Spotify Authentication API:
+Para que Spotify permita realizar requests desde sus APIs, es necesario obtener un token, que tiene duración de vencimiento, por lo tanto, se solicita un token en cada acción que se realiza. 
+Para esto, fue necesario hacer registro en la plataforma de desarrolladores de Spotify y registrando la APP, con lo que se obtiene un ID de Cliente y un Secret Key, valores necesarios para solicitar los tokens mencionados.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+*Spotify API:
+Utilizar la API de Spotify se vuelve una tarea sencilla una vez se haya entendido la solicitud de tokens. Con cada uno de los enlaces anteriormente mencionados, se visualizaban las respuestas, para entender la estructura de la información y así poder acceder a los parámetros que serán mostrados.
