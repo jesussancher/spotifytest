@@ -20,24 +20,24 @@ export default function App() {
     const getArtistProfile = (e) => {
         setArtistID(e)
     }
-
-    useEffect(() => {
-        const json = JSON.stringify(artistID);
-        if (artistID.length > 0) {
-            localStorage.setItem('artistID', json);
-        }
-    });
-    useEffect(() => {
-        const json = localStorage.getItem('artistID');
-        const artID = JSON.parse(json);
-        setArtistID(artID)
-    }, [artistID])
+    // Saving artist ID into the localStorage
+    // useEffect(() => {
+    //     const json = JSON.stringify(artistID);
+    //     if (artistID.length > 0) {
+    //         localStorage.setItem('artistID', json);
+    //     }
+    // });
+    // useEffect(() => {
+    //     const json = localStorage.getItem('artistID');
+    //     const artID = JSON.parse(json);
+    //     setArtistID(artID)
+    // }, [artistID])
     return (
         <Router>
+            <Redirect from="/" to="/home"></Redirect>
+
             <div>
                 <Navbar getSearch={getSearch}/>
-                <Redirect from="/" to="/home"></Redirect>
-
                 <Switch>
                     <Route path="/songs">
                         <SongSearch songSearch={search.songs} getArtistProfile={getArtistProfile}/>

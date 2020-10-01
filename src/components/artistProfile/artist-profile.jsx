@@ -31,11 +31,9 @@ export default React.memo(function ArtistProfile(props) {
         },
         json: true
     };
-    // Life cicle to avoid re-rendering, it allows getArtists() function to render
-    // just once useEffect(() => {     getArtist(); }, []); getArtists use
-    // authOptions object and ask for auth token Once token is ready and successful,
-    // it request the 12 first artist that match the search on Spotify's API Using
-    // a concatenated url where offset is the state declared
+    // getArtists use authOptions object and ask for auth token Once token is ready
+    // and successful, it request the 12 first artist that match the search on
+    // Spotify's API Using a concatenated url where offset is the state declared
     const getArtist = () => {
         request.post(authOptions, (error, response, body) => {
             setToken(body.access_token);
@@ -74,15 +72,17 @@ export default React.memo(function ArtistProfile(props) {
             }
         });
     }
+    // Life cycle to avoid requesting since information was gotten. Preventing 304
+    // status code
     useEffect(() => {
         if (artistInfo.length === 0) {
             getArtist();
         }
     })
     // Next and Prev arrow buttons, using their ID to set the offset getArtists()
-    // request offNext sums 12 to offset, so the next 12 artists will be rendered
-    // offPrev substracts 12 from offset, to the prev 12 artists will be rendered It
-    // is conditioned to prevent undefined results, by allowing prev be pressed if
+    // request offNext sums 6 to offset, so the next 6 albums will be rendered
+    // offPrev substracts 6 from offset, to the prev 6 albums will be rendered It is
+    // conditioned to prevent undefined results, by allowing prev be pressed if
     // offset is greater than 0
     const offsetList = (id) => {
         switch (id) {
