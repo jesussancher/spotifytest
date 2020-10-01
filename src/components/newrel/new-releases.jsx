@@ -13,7 +13,6 @@ export default React.memo(function NewReleases(props) {
         setToken] = useState('');
     const [songs,
         setSongs] = useState([]);
-    
     const [offset,
         setOffset] = useState(0);
     const request = require('request');
@@ -29,11 +28,6 @@ export default React.memo(function NewReleases(props) {
         },
         json: true
     };
-    // Life cicle to avoid re-rendering, it allows getSongs() function to render
-    // just once
-    useEffect(() => {
-        getSongs();
-    }, []);
     // getSongs use authOptions object and ask for auth token Once token is ready
     // and successful, it request the 12 new releases songs on Spotify's API Using a
     // concatenated url where offset is the state declared
@@ -48,7 +42,6 @@ export default React.memo(function NewReleases(props) {
                     },
                     json: true
                 };
-                console.log(options.url)
                 request.get(options, (error, response, body) => {
                     setSongs(body.albums.items);
                 });

@@ -10,6 +10,8 @@ export default React.memo(function ArtistProfile(props) {
         setArtistInfo] = useState([]);
     const [relatedArtists,
         setRelatedArtists] = useState([])
+    const [artistID,
+        setArtistID] = useState('')
     const [albums,
         setAlbums] = useState([])
     const [topTracks,
@@ -30,13 +32,10 @@ export default React.memo(function ArtistProfile(props) {
         json: true
     };
     // Life cicle to avoid re-rendering, it allows getArtists() function to render
-    // just once
-    useEffect(() => {
-        getArtist();
-    }, []);
-    // getArtists use authOptions object and ask for auth token Once token is ready
-    // and successful, it request the 12 first artist that match the search on
-    // Spotify's API Using a concatenated url where offset is the state declared
+    // just once useEffect(() => {     getArtist(); }, []); getArtists use
+    // authOptions object and ask for auth token Once token is ready and successful,
+    // it request the 12 first artist that match the search on Spotify's API Using
+    // a concatenated url where offset is the state declared
     const getArtist = () => {
         request.post(authOptions, (error, response, body) => {
             setToken(body.access_token);
@@ -75,6 +74,11 @@ export default React.memo(function ArtistProfile(props) {
             }
         });
     }
+    useEffect(() => {
+        if (artistInfo.length === 0) {
+            getArtist();
+        }
+    })
     // Next and Prev arrow buttons, using their ID to set the offset getArtists()
     // request offNext sums 12 to offset, so the next 12 artists will be rendered
     // offPrev substracts 12 from offset, to the prev 12 artists will be rendered It

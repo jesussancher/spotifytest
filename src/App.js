@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
 import styles from './styles.css';
 import Navbar from './components/navbar'
 import NewReleases from './components/newrel/new-releases'
@@ -7,6 +6,7 @@ import ArtistSearch from './components/artists/artist-search'
 import SongSearch from './components/songs/song-search'
 import ArtistProfile from './components/artistProfile/artist-profile'
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
+import NoSearch from './components/no-search'
 import './App.css';
 
 export default function App() {
@@ -21,11 +21,23 @@ export default function App() {
         setArtistID(e)
     }
 
+    useEffect(() => {
+        const json = JSON.stringify(artistID);
+        if (artistID.length > 0) {
+            localStorage.setItem('artistID', json);
+        }
+    });
+    useEffect(() => {
+        const json = localStorage.getItem('artistID');
+        const artID = JSON.parse(json);
+        setArtistID(artID)
+    }, [artistID])
     return (
         <Router>
             <div>
                 <Navbar getSearch={getSearch}/>
                 <Redirect from="/" to="/home"></Redirect>
+
                 <Switch>
                     <Route path="/songs">
                         <SongSearch songSearch={search.songs} getArtistProfile={getArtistProfile}/>
@@ -41,6 +53,7 @@ export default function App() {
                     <Route path={"/artist/" + artistID}>
                         <ArtistProfile getArtistProfile={getArtistProfile} artistID={artistID}/>
                     </Route>
+                    <Route compontent={NoSearch}/>
                 </Switch>
             </div>
         </Router>
